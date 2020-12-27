@@ -1,0 +1,11 @@
+body {
+  background-color: rgb(5, 37, 49);
+  color: rgb(199, 151, 62);
+}
+
+.timer {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 50px;
+  font-size: 75px;
+}
