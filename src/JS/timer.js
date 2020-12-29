@@ -1,28 +1,34 @@
 import refs from "./refs";
 
-const timer = 
-    setInterval(() => {
-    const currentDate = Date.now();
-    const targetDate = new Date('Jan 01 2021');
-const deltaTime = targetDate - currentDate;
-    
-        setTime(deltaTime);
+class CountdownTimer {
+    constructor({ selector, targetDate }) {
+        this.selector = selector;
+        this.targetDate = targetDate;
+    }
+    timerStart() {
+        const currentDate = Date.now();
+        const time = this.targetDate - currentDate;
+        const days = this.pad(Math.floor(time / (1000 * 60 * 60 * 24)));
+        const hours = this.pad(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+        const mins = this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
+        const secs = this.pad(Math.floor((time % (1000 * 60)) / 1000));
+        refs.days.textContent = `${days}`;
+        refs.hours.textContent = `${hours}`;
+        refs.mins.textContent = `${mins}`;
+        refs.secs.textContent = `${secs}`;
+    }
 
+    pad(value) {
+        return String(value).padStart(2, "0");
+    }
+
+    interval = setInterval(() => {
+        this.timerStart();
     }, 1000);
-    
-function setTime(time) {
-  const days = pad(Math.floor(time / (1000 * 60 * 60 * 24)));
-  const hours = pad(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-  const mins = pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
-    const secs = pad(Math.floor((time % (1000 * 60)) / 1000));
-    
-    refs.days.textContent = `${days}`;
-    refs.hours.textContent = `${hours}`;
-    refs.mins.textContent = `${mins}`;
-    refs.secs.textContent = `${secs}`;
-
 }
-
-function pad(value) {
-    return String(value).padStart(2, "0");
-}
+    
+const timer = new CountdownTimer({
+    selector: '#timer-1',
+    targetDate: new Date('Jan 01 2021'),
+ });
+    timer.timerStart();
