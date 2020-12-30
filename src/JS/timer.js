@@ -21,7 +21,6 @@ class CountdownTimer {
     pad(value) {
         return String(value).padStart(2, "0");
     }
-
     interval = setInterval(() => {
         this.timerStart();
     }, 1000);
